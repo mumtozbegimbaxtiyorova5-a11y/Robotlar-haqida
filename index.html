@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboUz | Kelajak Bugundan Boshlanadi: Robototexnika Olami</title>
+    
+    <!-- Google Fonts: Inter & Orbitron (Futuristik sarlavhalar uchun) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            dark: '#060B19',
+                            card: '#0D152A',
+                            border: '#1E293B',
+                            cyan: '#00F0FF',
+                            blue: '#3B82F6',
+                            purple: '#8B5CF6'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Maxsus futuristik stillar va scrollbar */
+        body {
+            background-color: #060B19;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060B19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00F0FF;
+        }
+
+        /* Neon effektlar */
+        .neon-text {
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+        .neon-border:hover {
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            border-color: rgba(0, 240, 255, 0.6);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(13, 21, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Grid fon */
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+        }
+
+        /* Modal animatsiyasi */
+        .modal-enter {
+            animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- ==================== 1. NAVIGATSIYA PANELI ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-400/50 transition-all">
+                        <div class="w-full h-full bg-cyber-dark rounded-[10px] flex items-center justify-center">
+                            <svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="6" width="16" height="12" rx="3" />
+                                <path d="M9 11h.01M15 11h.01M9 15h6M12 2v4M2 12h2M20 12h2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-wider text-white">
+                        ROBO<span class="text-cyan-400">UZ</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Menyu -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#hero" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Asosiy</a>
+                    <a href="#catalog" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Mashhur Robotlar</a>
+                    <a href="#timeline" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Tarix</a>
+                    <a href="#quiz" class="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors">Viktorina</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 text-sm font-semibold hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300">
+                        Savol yo'llash
+                    </a>
+                </nav>
+
+                <!-- Mobil Menyu Tugmasi -->
+                <button id="mobile-menu-btn" aria-label="Menyuni ochish" class="md:hidden p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobil Menyu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="#hero" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-slate-800/70 hover:text-cyan-400">Asosiy</a>
+            <a href="#catalog" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-slate-800/70 hover:text-cyan-400">Mashhur Robotlar</a>
+            <a href="#timeline" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-slate-800/70 hover:text-cyan-400">Robototexnika Tarixi</a>
+            <a href="#quiz" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-200 hover:bg-slate-800/70 hover:text-cyan-400">Bilim Viktorinasi</a>
+            <a href="#contact" class="mobile-link block px-4 py-3 rounded-xl text-base font-semibold text-center bg-cyan-500 text-slate-950 mt-4">Savol yo'llash</a>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO BO'LIMI ==================== -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden cyber-grid">
+        <!-- Interaktiv Canvas Zarrachalar Foni -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        
+        <!-- Yorug'lik nurlari (Glow effects) -->
+        <div class="absolute top-1/4 -left-20 w-72 h-72 bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[130px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Chap ustun: Matn va Tugmalar -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs sm:text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        Sun'iy Intellekt va Avtonom Tizimlar Davri
+                    </div>
+                    
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-white">
+                        Kelajak Bugundan Boshlanadi: <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 neon-text">Robototexnika Olami</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Sanoat gigantlaridan tortib, inson qiyofasidagi aqlli gumanoidlargacha — zamonaviy robotlar hayotimiz, tibbiyot va koinotni qanday o'zgartirayotganini kashf eting.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#catalog" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-base shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/50 hover:-translate-y-0.5 transition-all duration-300 text-center">
+                            Robotlarni ko'rish
+                        </a>
+                        <a href="#quiz" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-white font-semibold text-base transition-all duration-300 text-center flex items-center justify-center gap-2">
+                            <span>Bilimni sinash</span>
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Qisqacha statistika -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-cyan-400">4.2M+</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Sanoat robotlari</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-blue-400">99.9%</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Jarrohlik aniqligi</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-purple-400">AI + 5G</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Aqlli boshqaruv</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- O'ng ustun: Interaktiv Futuristik Robot SVG Illyustratsiyasi -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 animate-float">
+                        <!-- Aylanuvchi halqalar -->
+                        <div class="absolute inset-0 rounded-full border-2 border-dashed border-cyan-500/30 animate-[spin_20s_linear_infinite]"></div>
+                        <div class="absolute inset-4 rounded-full border border-blue-500/40 animate-[spin_15s_linear_infinite_reverse]"></div>
+                        
+                        <!-- Markaziy Robot Boshi SVG -->
+                        <div class="absolute inset-8 rounded-3xl bg-gradient-to-b from-slate-800/90 to-slate-950/95 border border-cyan-400/50 shadow-2xl shadow-cyan-500/20 flex items-center justify-center p-6">
+                            <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                                <!-- Antenna -->
+                                <line x1="100" y1="15" x2="100" y2="40" stroke="#00F0FF" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="100" cy="12" r="6" fill="#00F0FF">
+                                    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Quloq sensorlari -->
+                                <rect x="22" y="80" width="14" height="40" rx="6" fill="#1E293B" stroke="#3B82F6" stroke-width="3"/>
+                                <rect x="164" y="80" width="14" height="40" rx="6" fill="#1E293B" stroke="#3B82F6" stroke-width="3"/>
+                                <!-- Asosiy bosh korpusi -->
+                                <rect x="38" y="42" width="124" height="116" rx="28" fill="#0F172A" stroke="#00F0FF" stroke-width="3"/>
+                                <!-- Vizor (Ko'z ekrani) -->
+                                <rect x="52" y="65" width="96" height="44" rx="14" fill="#020617" stroke="#1E293B" stroke-width="2"/>
+                                <!-- Neon Ko'zlar -->
+                                <circle cx="78" cy="87" r="10" fill="#00F0FF">
+                                    <animate attributeName="r" values="10;8;10" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="122" cy="87" r="10" fill="#00F0FF">
+                                    <animate attributeName="r" values="10;8;10" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <!-- Og'iz / Ovoz to'lqini -->
+                                <rect x="70" y="128" width="60" height="10" rx="5" fill="#1E293B"/>
+                                <rect x="76" y="131" width="12" height="4" rx="2" fill="#00F0FF"/>
+                                <rect x="94" y="131" width="12" height="4" rx="2" fill="#3B82F6"/>
+                                <rect x="112" y="131" width="12" height="4" rx="2" fill="#00F0FF"/>
+                                <!-- Bo'yin -->
+                                <path d="M75 158 L75 180 L125 180 L125 158" fill="#1E293B" stroke="#3B82F6" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. MASHHUR ROBOTLAR KATALOGI ==================== -->
+    <section id="catalog" class="py-24 relative bg-slate-950/60 border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Bo'lim Sarlavhasi -->
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+                <span class="text-cyan-400 font-display text-sm font-semibold tracking-widest uppercase">Texnologik Mo'jizalar</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">Mashhur Robotlar Katalogi</h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Turli sohalarda insoniyatga xizmat qilayotgan eng ilg'or robot modellari bilan tanishing. Batafsil texnik ma'lumotlar uchun kartochkani tanlang.
+                </p>
+            </div>
+
+            <!-- Kategoriya Filtrlari -->
+            <div id="filter-buttons" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+                <button data-category="Hammasi" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25">
+                    Hammasi
+                </button>
+                <button data-category="Gumanoid" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-cyber-card text-slate-300 border border-slate-800 hover:border-cyan-500/50 hover:text-cyan-400">
+                    Gumanoid
+                </button>
+                <button data-category="Sanoat" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-cyber-card text-slate-300 border border-slate-800 hover:border-cyan-500/50 hover:text-cyan-400">
+                    Sanoat
+                </button>
+                <button data-category="Tibbiyot" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-cyber-card text-slate-300 border border-slate-800 hover:border-cyan-500/50 hover:text-cyan-400">
+                    Tibbiyot
+                </button>
+                <button data-category="Uy-ro'zg'or" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-cyber-card text-slate-300 border border-slate-800 hover:border-cyan-500/50 hover:text-cyan-400">
+                    Uy-ro'zg'or
+                </button>
+            </div>
+
+            <!-- Robotlar Grid Konteyneri (JavaScript orqali to'ldiriladi) -->
+            <div id="robots-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dinamik kartochkalar shu yerga tushadi -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== 4. ROBOTOTEXNIKA TARIXI (INTERAKTIV TIMELINE) ==================== -->
+    <section id="timeline" class="py-24 relative cyber-grid border-t border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-blue-400 font-display text-sm font-semibold tracking-widest uppercase">Evolyutsiya Yo'li</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">Robototexnika Tarixi</h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Ilk mexanik chizmalardan tortib, bugungi sun'iy intellektli avtonom robotlargacha bo'lgan muhim bosqichlarni bosing va o'rganing.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Chap tomon: Bosqichlar ro'yxati -->
+                <div id="timeline-steps" class="lg:col-span-5 space-y-3">
+                    <!-- JS orqali tugmalar yaratiladi -->
+                </div>
+
+                <!-- O'ng tomon: Tanlangan davr tafsilotlari -->
+                <div class="lg:col-span-7">
+                    <div id="timeline-display" class="glass rounded-3xl p-6 sm:p-10 border border-cyan-500/30 shadow-2xl shadow-cyan-500/10 transition-all duration-300">
+                        <!-- JS orqali dinamik ma'lumot chiqadi -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== 5. INTERAKTIV VIKTORINA (QUIZ) ==================== -->
+    <section id="quiz" class="py-24 relative bg-slate-950/70 border-t border-slate-800/80">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12 space-y-4">
+                <span class="text-purple-400 font-display text-sm font-semibold tracking-widest uppercase">Interaktiv Sinov</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">Bilimingizni Sinab Ko'ring</h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Robototexnika va sun'iy intellekt olamiga oid 5 ta qiziqarli savolga javob bering.
+                </p>
+            </div>
+
+            <!-- Viktorina Konteyneri -->
+            <div id="quiz-container" class="glass rounded-3xl p-6 sm:p-10 border border-slate-800 neon-border">
+                <!-- Savol holati va ball -->
+                <div id="quiz-header" class="flex items-center justify-between pb-6 mb-6 border-b border-slate-800">
+                    <div class="text-sm font-medium text-slate-400">
+                        Savol: <span id="quiz-progress" class="text-cyan-400 font-bold">1 / 5</span>
+                    </div>
+                    <div class="px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-semibold">
+                        Ball: <span id="quiz-score">0</span>
+                    </div>
+                </div>
+
+                <!-- Savol matni va variantlar -->
+                <div id="quiz-body">
+                    <h3 id="quiz-question" class="text-xl sm:text-2xl font-bold text-white mb-6 leading-snug">
+                        Savol yuklanmoqda...
+                    </h3>
+                    <div id="quiz-options" class="space-y-3">
+                        <!-- Variant tugmalari -->
+                    </div>
+                    <div id="quiz-feedback" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
+                    <div class="mt-8 flex justify-end">
+                        <button id="quiz-next-btn" class="hidden px-6 py-3 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm hover:bg-cyan-400 transition-all">
+                            Keyingi savol &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Yakuniy natija ekrani -->
+                <div id="quiz-result" class="hidden text-center py-6 space-y-6">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-400">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-bold text-white">Viktorina Yakunlandi!</h3>
+                    <p id="quiz-result-text" class="text-slate-300 text-base sm:text-lg max-w-md mx-auto"></p>
+                    <button id="quiz-restart-btn" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/25 hover:opacity-90 transition-all">
+                        Qaytadan boshlash
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== 6. SAVOL YO'LLASH (ALOQA FORMASI) ==================== -->
+    <section id="contact" class="py-24 relative cyber-grid border-t border-slate-800/80">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass rounded-3xl p-8 sm:p-12 border border-slate-800 shadow-2xl">
+                
+                <div class="text-center max-w-xl mx-auto mb-10 space-y-3">
+                    <span class="text-cyan-400 font-display text-xs font-semibold tracking-widest uppercase">Aloqa Markazi</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">Savol Yo'llash</h2>
+                    <p class="text-slate-400 text-sm">
+                        Robototexnika bo'yicha savollaringiz bormi yoki hamkorlik qilmoqchimisiz? Bizga xabar qoldiring!
+                    </p>
+                </div>
+
+                <form id="contact-form" novalidate class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Ism -->
+                        <div>
+                            <label for="user-name" class="block text-sm font-medium text-slate-300 mb-2">Ismingiz *</label>
+                            <input type="text" id="user-name" placeholder="Masalan: Azizbek" 
+                                class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors">
+                            <p id="error-name" class="hidden text-xs text-rose-400 mt-1.5">Iltimos, ismingizni kamida 2 ta harf bilan kiriting.</p>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="user-email" class="block text-sm font-medium text-slate-300 mb-2">Elektron pochta *</label>
+                            <input type="email" id="user-email" placeholder="azizbek@example.uz" 
+                                class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors">
+                            <p id="error-email" class="hidden text-xs text-rose-400 mt-1.5">Iltimos, to'g'ri elektron pochta manzilini kiriting.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mavzu -->
+                    <div>
+                        <label for="user-topic" class="block text-sm font-medium text-slate-300 mb-2">Qiziqtirgan yo'nalish</label>
+                        <select id="user-topic" class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white focus:outline-none focus:border-cyan-400 transition-colors">
+                            <option value="Umumiy savol">Umumiy savol</option>
+                            <option value="Gumanoid robotlar">Gumanoid robotlar</option>
+                            <option value="Sanoat avtomatizatsiyasi">Sanoat avtomatizatsiyasi</option>
+                            <option value="Ta'lim va loyihalar">Ta'lim va loyihalar</option>
+                        </select>
+                    </div>
+
+                    <!-- Xabar -->
+                    <div>
+                        <label for="user-message" class="block text-sm font-medium text-slate-300 mb-2">Savolingiz yoki xabaringiz *</label>
+                        <textarea id="user-message" rows="4" placeholder="Savolingizni batafsil yozing..." 
+                            class="w-full px-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors resize-none"></textarea>
+                        <p id="error-message" class="hidden text-xs text-rose-400 mt-1.5">Xabar matni kamida 10 ta belgidan iborat bo'lishi kerak.</p>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-base shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 transition-all duration-300">
+                        Xabarni Yuborish
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. FOOTER ==================== -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-display font-bold">
+                    R
+                </div>
+                <span class="font-display font-bold text-lg text-white">ROBO<span class="text-cyan-400">UZ</span></span>
+            </div>
+            
+            <p class="text-slate-400 text-sm text-center">
+                &copy; 2026 RoboUz — Kelajak texnologiyalari portali. Barcha huquqlar himoyalangan.
+            </p>
+            
+            <div class="flex items-center gap-6 text-sm text-slate-400">
+                <a href="#hero" class="hover:text-cyan-400 transition-colors">Yuqoriga &uarr;</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== BATAFSIL MA'LUMOT MODALI ==================== -->
+    <div id="robot-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="relative w-full max-w-2xl glass rounded-3xl border border-cyan-500/40 shadow-2xl shadow-cyan-500/20 overflow-hidden modal-enter">
+            <!-- Yopish tugmasi -->
+            <button id="close-modal-btn" aria-label="Modalni yopish" class="absolute top-5 right-5 w-10 h-10 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 hover:text-rose-400 text-slate-300 flex items-center justify-center transition-colors z-10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div id="modal-content" class="p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
+                <!-- JS orqali dinamik to'ldiriladi -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST BILDIRISHNOMA ==================== -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900 border border-cyan-400 shadow-2xl shadow-cyan-500/30 text-white">
+            <div class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm text-cyan-400">Muvaffaqiyatli yuborildi!</h4>
+                <p id="toast-message" class="text-xs text-slate-300 mt-0.5">Savolingiz qabul qilindi. Tez orada javob beramiz.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== VANILLA JAVASCRIPT MANTIQI ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /* ----------------------------------------------------------------
+               1. MA'LUMOTLAR BAZASI (ROBOTLAR, TARIX VA VIKTORINA)
+            ---------------------------------------------------------------- */
+            const robotsData = [
+                {
+                    id: 1,
+                    name: "Atlas (Boston Dynamics)",
+                    category: "Gumanoid",
+                    manufacturer: "Boston Dynamics (AQSH)",
+                    year: "2024 (To'liq elektr avlodi)",
+                    shortDesc: "Murakkab akrobatik harakatlar va avtonom yuk tashishga qodir eng ilg'or gumanoid robot.",
+                    fullDesc: "Yangi avlod to'liq elektr Atlas roboti inson imkoniyatlaridan yuqori harakatchanlikka ega. U 360 daraja aylanuvchi bo'g'inlari, sun'iy intellektga asoslangan ko'rish tizimi va murakkab muhitda mustaqil qaror qabul qilish qobiliyati bilan ajralib turadi.",
+                    specs: {
+                        "Balandligi": "1.5 metr",
+                        "Vazni": "89 kg",
+                        "Tezligi": "2.5 m/s (9 km/soat)",
+                        "Quvvat manbai": "Yuqori sig'imli Li-Ion batareya"
+                    },
+                    accentColor: "cyan",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="50" cy="24" r="12"/>
+                        <path d="M30 46h40l-5 28H35l-5-28z"/>
+                        <path d="M30 48L16 68M70 48l14 20M40 74l-6 20M60 74l6 20" stroke-linecap="round"/>
+                        <circle cx="46" cy="23" r="1.5" fill="currentColor"/>
+                        <circle cx="54" cy="23" r="1.5" fill="currentColor"/>
+                    </svg>`
+                },
+                {
+                    id: 2,
+                    name: "Optimus Gen-2",
+                    category: "Gumanoid",
+                    manufacturer: "Tesla (AQSH)",
+                    year: "2024",
+                    shortDesc: "Zavodlar va kundalik hayotda takrorlanuvchi vazifalarni bajaruvchi aqlli yordamchi robot.",
+                    fullDesc: "Tesla Optimus Gen-2 neyron tarmoqlar va avtopilot texnologiyalari asosida ishlaydi. Uning barmoqlari nozik buyumlarni (masalan, tuxumni sindirmasdan) ushlash imkonini beruvchi taktil sensorlar bilan jihozlangan.",
+                    specs: {
+                        "Balandligi": "1.73 metr",
+                        "Vazni": "57 kg",
+                        "Yuk ko'tarishi": "20 kg gacha",
+                        "Barmoqlar": "11 darajali erkinlik va sensorlar"
+                    },
+                    accentColor: "blue",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <rect x="38" y="12" width="24" height="22" rx="8"/>
+                        <path d="M42 22h16" stroke-width="3" stroke-linecap="round"/>
+                        <rect x="32" y="40" width="36" height="32" rx="6"/>
+                        <path d="M32 44L18 66M68 44l14 22M42 72v20M58 72v20" stroke-linecap="round"/>
+                    </svg>`
+                },
+                {
+                    id: 3,
+                    name: "Da Vinci Xi",
+                    category: "Tibbiyot",
+                    manufacturer: "Intuitive Surgical (AQSH)",
+                    year: "2022",
+                    shortDesc: "Minimal invaziv murakkab jarrohlik amaliyotlarini o'ta yuqori aniqlikda bajaruvchi tizim.",
+                    fullDesc: "Da Vinci Xi jarrohning qo'l harakatlarini mikroskopik aniqlikdagi harakatlarga aylantiradi. 3D HD kamera va titrashni yo'qotuvchi manipulyatorlar bemorlarning tezroq sog'ayishini ta'minlaydi.",
+                    specs: {
+                        "Manipulyatorlar": "4 ta ko'p bo'g'imli qo'l",
+                        "Kamera": "3D HD 10x kattalashtirish",
+                        "Aniqlik": "0.1 millimetr",
+                        "Qo'llanilishi": "Kardiojarrohlik, urologiya, onkologiya"
+                    },
+                    accentColor: "purple",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-purple-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M50 15v20M35 35h30"/>
+                        <path d="M35 35L20 55l12 18M65 35l15 20-12 18" stroke-linecap="round"/>
+                        <circle cx="50" cy="60" r="10"/>
+                        <path d="M50 55v10M45 60h10" stroke-linecap="round"/>
+                    </svg>`
+                },
+                {
+                    id: 4,
+                    name: "KUKA KR QUANTEC",
+                    category: "Sanoat",
+                    manufacturer: "KUKA Robotics (Germaniya)",
+                    year: "2023",
+                    shortDesc: "Avtomobilsozlik va og'ir sanoat konveyerlari uchun yuqori tezlikdagi sanoat manipulyatori.",
+                    fullDesc: "KUKA KR QUANTEC og'ir yuklarni yuqori tezlik va uzluksiz aniqlik bilan payvandlash, yig'ish hamda bo'yash ishlarini bajaradi. Zavodlarda 24/7 rejimida to'xtovsiz ishlashga mo'ljallangan.",
+                    specs: {
+                        "Yuk ko'tarishi": "300 kg gacha",
+                        "Ta'sir radiusi": "3.1 metr",
+                        "Takroriy aniqlik": "±0.05 mm",
+                        "Himoya darajasi": "IP65 / IP67"
+                    },
+                    accentColor: "cyan",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <rect x="25" y="78" width="50" height="10" rx="3"/>
+                        <path d="M40 78V58l24-22-16-16" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="40" cy="58" r="5"/>
+                        <circle cx="64" cy="36" r="5"/>
+                        <path d="M42 16l-6 6M52 24l-6 6" stroke-linecap="round"/>
+                    </svg>`
+                },
+                {
+                    id: 5,
+                    name: "Roomba Combo j9+",
+                    category: "Uy-ro'zg'or",
+                    manufacturer: "iRobot (AQSH)",
+                    year: "2024",
+                    shortDesc: "Sun'iy intellekt yordamida xonalar xaritasini tuzuvchi avtonom tozalovchi robot.",
+                    fullDesc: "Roomba Combo j9+ gilam va qattiq pollarni avtomatik farqlaydi, to'siqlarni (simlar, uy hayvonlari) tanib aylanib o'tadi va bazasiga qaytib o'zini mustaqil tozalaydi.",
+                    specs: {
+                        "Navigatsiya": "PrecisionVision AI kamera",
+                        "Ishlash vaqti": "120 daqiqagacha",
+                        "Avtomatik baza": "Chang va suvni almashtirish",
+                        "Boshqaruv": "Mobil ilova va ovozli yordamchilar"
+                    },
+                    accentColor: "blue",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="50" cy="52" r="34"/>
+                        <circle cx="50" cy="52" r="22" stroke-dasharray="6 4"/>
+                        <circle cx="50" cy="34" r="4" fill="currentColor"/>
+                        <path d="M22 24c16-10 40-10 56 0" stroke-linecap="round"/>
+                    </svg>`
+                },
+                {
+                    id: 6,
+                    name: "Spot Enterprise",
+                    category: "Sanoat",
+                    manufacturer: "Boston Dynamics (AQSH)",
+                    year: "2023",
+                    shortDesc: "Murakkab relyeflarda harakatlanuvchi to'rt oyoqli avtonom inspeksiya roboti.",
+                    fullDesc: "Spot qurilish maydonlari, elektr stansiyalari va xavfli hududlarda termal kameralar hamda LiDAR sensorlari yordamida diagnostika va xavfsizlik nazoratini olib boradi.",
+                    specs: {
+                        "Tezligi": "1.6 m/s",
+                        "Sensorlar": "360° LiDAR va termal kamera",
+                        "Ishlash harorati": "-20°C dan +45°C gacha",
+                        "Batareya": "90 daqiqa uzluksiz harakat"
+                    },
+                    accentColor: "purple",
+                    svgIcon: `<svg viewBox="0 0 100 100" class="w-16 h-16 text-purple-400" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <rect x="24" y="42" width="52" height="16" rx="5"/>
+                        <path d="M30 58l-6 26M42 58l-4 26M64 58l4 26M72 58l6 26" stroke-linecap="round"/>
+                        <path d="M70 42l8-14h10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>`
+                }
+            ];
+
+            const timelineData = [
+                {
+                    year: "1495-yil",
+                    title: "Leonardo da Vinchining Mexanik Ritsari",
+                    subtitle: "Ilk gumanoid mexanizm chizmasi",
+                    description: "Buyuk italyan olimi Leonardo da Vinchi tishli g'ildiraklar va troslar yordamida o'tirish, turish, qo'llarini harakatlantirish va jag'ini ochib-yopishga qodir mexanik ritsar loyihasini yaratgan.",
+                    highlight: "Zamonaviy anatomik robototexnikaning nazariy poydevori qo'yilgan."
+                },
+                {
+                    year: "1920-yil",
+                    title: "«Robot» Atamasining Paydo Bo'lishi",
+                    subtitle: "Karel Chapek va R.U.R. pyesasi",
+                    description: "Chex yozuvchisi Karel Chapek o'zining «R.U.R.» (Rossumning Universal Robotlari) ilmiy-fantastik pyesasida ilk bor «robot» (chexcha 'robota' — majburiy mehnat) so'zini ishlatdi.",
+                    highlight: "Butun dunyoda sun'iy ishchi mexanizmlar uchun yagona nom qabul qilindi."
+                },
+                {
+                    year: "1961-yil",
+                    title: "Unimate — Ilk Sanoat Roboti",
+                    subtitle: "General Motors zavodida inqilob",
+                    description: "Jorj Devol va Jozef Engelberger tomonidan yaratilgan «Unimate» roboti General Motors konveyerida issiq metall qismlarni quyish va payvandlash ishlarini bajarishni boshladi.",
+                    highlight: "Sanoatni avtomatlashtirish davri rasman boshlandi."
+                },
+                {
+                    year: "1997-yil",
+                    title: "Sojourner — Marsdagi Ilk Rover",
+                    subtitle: "Koinot robototexnikasi yutug'i",
+                    description: "NASAning «Mars Pathfinder» missiyasi doirasida Sojourner roboti Qizil sayyora yuzasiga qo'ndi va boshqa sayyorada mustaqil harakatlangan ilk g'ildirakli robotga aylandi.",
+                    highlight: "Inson qadami yetmagan sayyoralarni tadqiq qilish imkoniyati ochildi."
+                },
+                {
+                    year: "2024–2026",
+                    title: "Sun'iy Intellektli Gumanoidlar Davri",
+                    subtitle: "Kognitiv va avtonom robotlar",
+                    description: "Katta til modellari (LLM) va kompyuter ko'rish tizimlari robotlarga nafaqat buyruqlarni bajarish, balki inson nutqini tushunish, muloqot qilish va murakkab muhitda mustaqil o'rganish imkonini berdi.",
+                    highlight: "Robotlar zavodlardan uylarimiz va ofislarimizga kirib kelmoqda."
+                }
+            ];
+
+            const quizQuestions = [
+                {
+                    question: "«Robot» so'zini ilk bor 1920-yilda kim o'z asarida ishlatgan?",
+                    options: ["Ayzek Azimov", "Karel Chapek", "Nikola Tesla", "Alan Tyuring"],
+                    correct: 1,
+                    explanation: "Chex yozuvchisi Karel Chapek 1920-yilda 'R.U.R.' pyesasida ilk bor 'robot' atamasini qo'llagan."
+                },
+                {
+                    question: "Robototexnikaning mashhur «Uch qonuni» muallifi kim?",
+                    options: ["Ayzek Azimov", "Ilon Mask", "Leonardo da Vinchi", "Jorj Devol"],
+                    correct: 0,
+                    explanation: "Ilmiy-fantast yozuvchi Ayzek Azimov 1942-yilda robotlarning axloqiy xulq-atvorini belgilovchi uch qonunni yozgan."
+                },
+                {
+                    question: "1961-yilda zavod konveyerida ishlay boshlagan dunyodagi ilk sanoat roboti qanday nomlangan?",
+                    options: ["Atlas", "ASIMO", "Unimate", "Spot"],
+                    correct: 2,
+                    explanation: "Unimate — General Motors zavodida qo'llanilgan dunyodagi birinchi dasturlashtiriladigan sanoat roboti."
+                },
+                {
+                    question: "Jarrohlik amaliyotlarida o'ta yuqori aniqlik bilan qo'llaniladigan mashhur tibbiy robot qaysi?",
+                    options: ["Roomba", "Da Vinci", "KUKA", "Optimus"],
+                    correct: 1,
+                    explanation: "Da Vinci jarrohlik tizimi minimal invaziv operatsiyalarni mikroskopik aniqlikda bajarish imkonini beradi."
+                },
+                {
+                    question: "Zamonaviy robotlarga atrof-muhitni 3D formatda ko'rish va masofani o'lchashga qaysi texnologiya yordam beradi?",
+                    options: ["LiDAR sensorlari", "Faqat oddiy mikrofon", "Mexanik prujina", "Radiopriyomnik"],
+                    correct: 0,
+                    explanation: "LiDAR (Light Detection and Ranging) lazer nurlari yordamida atrof-muhitning aniq 3D xaritasini yaratadi."
+                }
+            ];
+
+            /* ----------------------------------------------------------------
+               2. MOBIL MENYU VA NAVIGATSIYA
+            ---------------------------------------------------------------- */
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconOpen = document.getElementById('menu-icon-open');
+            const iconClose = document.getElementById('menu-icon-close');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden', !isHidden);
+                iconClose.classList.toggle('hidden', isHidden);
+            });
+
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                });
+            });
+
+            /* ----------------------------------------------------------------
+               3. HERO CANVAS INTERAKTIV ZARRACHALAR ANIMATSIYASI
+            ---------------------------------------------------------------- */
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.radius = Math.random() * 2 + 1;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 240, 255, 0.5)';
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const count = Math.min(Math.floor(canvas.width / 18), 65);
+                for (let i = 0; i < count; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            initParticles();
+
+            function animateCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 130) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 130)})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateCanvas);
+            }
+            animateCanvas();
+
+            /* ----------------------------------------------------------------
+               4. MASHHUR ROBOTLAR KATALOGI VA FILTRLASH
+            ---------------------------------------------------------------- */
+            const robotsGrid = document.getElementById('robots-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const modal = document.getElementById('robot-modal');
+            const modalContent = document.getElementById('modal-content');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            function renderRobots(category = 'Hammasi') {
+                robotsGrid.innerHTML = '';
+                const filtered = category === 'Hammasi' 
+                    ? robotsData 
+                    : robotsData.filter(r => r.category === category);
+
+                filtered.forEach(robot => {
+                    const card = document.createElement('div');
+                    card.className = "glass rounded-3xl p-6 border border-slate-800 neon-border flex flex-col justify-between group transition-all duration-300 hover:-translate-y-1";
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
+                                    ${robot.category}
+                                </span>
+                                <span class="text-xs text-slate-400 font-medium">${robot.year}</span>
+                            </div>
+                            
+                            <div class="w-full h-36 rounded-2xl bg-slate-900/90 border border-slate-800/80 flex items-center justify-center mb-6 group-hover:border-cyan-500/40 transition-colors">
+                                ${robot.svgIcon}
+                            </div>
+
+                            <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                                ${robot.name}
+                            </h3>
+                            <p class="text-xs text-blue-400 font-medium mb-3">${robot.manufacturer}</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                ${robot.shortDesc}
+                            </p>
+                        </div>
+
+                        <button data-id="${robot.id}" class="open-modal-btn w-full py-3 rounded-xl bg-slate-800/90 hover:bg-cyan-500 text-white hover:text-slate-950 font-semibold text-sm border border-slate-700 hover:border-cyan-400 transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>Batafsil ma'lumot</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    `;
+                    robotsGrid.appendChild(card);
+                });
+
+                // Modal ochish tugmalariga hodisa ulash
+                document.querySelectorAll('.open-modal-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const robotId = parseInt(btn.getAttribute('data-id'));
+                        openRobotModal(robotId);
+                    });
+                });
+            }
+
+            // Filtr tugmalari logikasi
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-cyan-500', 'text-slate-950', 'shadow-lg', 'shadow-cyan-500/25');
+                        b.classList.add('bg-cyber-card', 'text-slate-300', 'border', 'border-slate-800');
+                    });
+                    btn.classList.remove('bg-cyber-card', 'text-slate-300', 'border', 'border-slate-800');
+                    btn.classList.add('bg-cyan-500', 'text-slate-950', 'shadow-lg', 'shadow-cyan-500/25');
+                    
+                    renderRobots(btn.getAttribute('data-category'));
+                });
+            });
+
+            function openRobotModal(id) {
+                const robot = robotsData.find(r => r.id === id);
+                if (!robot) return;
+
+                let specsHTML = '';
+                for (const [key, value] of Object.entries(robot.specs)) {
+                    specsHTML += `
+                        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                            <div class="text-xs text-slate-400">${key}</div>
+                            <div class="text-sm font-bold text-cyan-400 mt-0.5">${value}</div>
+                        </div>
+                    `;
+                }
+
+                modalContent.innerHTML = `
+                    <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-slate-800">
+                        <div class="w-24 h-24 rounded-2xl bg-slate-900 border border-cyan-500/30 flex items-center justify-center shrink-0">
+                            ${robot.svgIcon}
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <span class="px-3 py-1 rounded-lg bg-cyan-500/10 text-cyan-400 text-xs font-semibold">${robot.category}</span>
+                            <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mt-2">${robot.name}</h3>
+                            <p class="text-sm text-blue-400 mt-1">${robot.manufacturer} &bull; ${robot.year}</p>
+                        </div>
+                    </div>
+
+                    <div class="py-6 space-y-4">
+                        <h4 class="font-semibold text-white text-base">Umumiy tavsif</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">${robot.fullDesc}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-white text-base mb-3">Texnik ko'rsatkichlar</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            ${specsHTML}
+                        </div>
+                    </div>
+                `;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            closeModalBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            });
+
+            renderRobots();
+
+            /* ----------------------------------------------------------------
+               5. ROBOTOTEXNIKA TARIXI (TIMELINE)
+            ---------------------------------------------------------------- */
+            const timelineSteps = document.getElementById('timeline-steps');
+            const timelineDisplay = document.getElementById('timeline-display');
+
+            function renderTimeline(activeIndex = 0) {
+                timelineSteps.innerHTML = '';
+                timelineData.forEach((item, index) => {
+                    const isActive = index === activeIndex;
+                    const btn = document.createElement('button');
+                    btn.className = `w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between ${
+                        isActive 
+                        ? 'bg-cyan-500/15 border-cyan-400 shadow-lg shadow-cyan-500/10' 
+                        : 'bg-cyber-card/70 border-slate-800 hover:border-slate-700'
+                    }`;
+
+                    btn.innerHTML = `
+                        <div>
+                            <span class="font-display text-xs font-bold ${isActive ? 'text-cyan-400' : 'text-slate-400'}">${item.year}</span>
+                            <h4 class="font-semibold text-sm sm:text-base ${isActive ? 'text-white' : 'text-slate-300'} mt-0.5">${item.title}</h4>
+                        </div>
+                        <span class="w-3 h-3 rounded-full ${isActive ? 'bg-cyan-400 shadow-[0_0_10px_#00F0FF]' : 'bg-slate-700'}"></span>
+                    `;
+
+                    btn.addEventListener('click', () => renderTimeline(index));
+                    timelineSteps.appendChild(btn);
+                });
+
+                const current = timelineData[activeIndex];
+                timelineDisplay.innerHTML = `
+                    <div class="inline-block px-4 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-display font-bold text-sm mb-4">
+                        ${current.year}
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">${current.title}</h3>
+                    <p class="text-blue-400 font-medium text-sm mb-6">${current.subtitle}</p>
+                    <p class="text-slate-300 text-base leading-relaxed mb-6">${current.description}</p>
+                    <div class="p-4 rounded-2xl bg-slate-900/90 border-l-4 border-cyan-400 text-sm text-slate-200">
+                        <strong class="text-cyan-400">Tarixiy ahamiyati:</strong> ${current.highlight}
+                    </div>
+                `;
+            }
+
+            renderTimeline(0);
+
+            /* ----------------------------------------------------------------
+               6. INTERAKTIV VIKTORINA (QUIZ)
+            ---------------------------------------------------------------- */
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let answered = false;
+
+            const quizProgress = document.getElementById('quiz-progress');
+            const quizScore = document.getElementById('quiz-score');
+            const quizQuestion = document.getElementById('quiz-question');
+            const quizOptions = document.getElementById('quiz-options');
+            const quizFeedback = document.getElementById('quiz-feedback');
+            const quizNextBtn = document.getElementById('quiz-next-btn');
+            const quizBody = document.getElementById('quiz-body');
+            const quizHeader = document.getElementById('quiz-header');
+            const quizResult = document.getElementById('quiz-result');
+            const quizResultText = document.getElementById('quiz-result-text');
+            const quizRestartBtn = document.getElementById('quiz-restart-btn');
+
+            function loadQuizQuestion() {
+                answered = false;
+                const q = quizQuestions[currentQuestionIndex];
+                quizProgress.textContent = `${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+                quizScore.textContent = score;
+                quizQuestion.textContent = q.question;
+                quizFeedback.classList.add('hidden');
+                quizNextBtn.classList.add('hidden');
+                quizOptions.innerHTML = '';
+
+                q.options.forEach((opt, idx) => {
+                    const button = document.createElement('button');
+                    button.className = "w-full text-left p-4 rounded-xl bg-slate-900/90 border border-slate-700 hover:border-cyan-400 text-slate-200 font-medium text-sm sm:text-base transition-all duration-200 flex items-center gap-3";
+                    button.innerHTML = `
+                        <span class="w-7 h-7 rounded-lg bg-slate-800 text-cyan-400 font-display text-xs font-bold flex items-center justify-center shrink-0">
+                            ${String.fromCharCode(65 + idx)}
+                        </span>
+                        <span>${opt}</span>
+                    `;
+                    button.addEventListener('click', () => handleQuizAnswer(idx, button));
+                    quizOptions.appendChild(button);
+                });
+            }
+
+            function handleQuizAnswer(selectedIndex, selectedBtn) {
+                if (answered) return;
+                answered = true;
+
+                const q = quizQuestions[currentQuestionIndex];
+                const allBtns = quizOptions.querySelectorAll('button');
+
+                allBtns.forEach((btn, idx) => {
+                    btn.disabled = true;
+                    if (idx === q.correct) {
+                        btn.classList.remove('border-slate-700', 'bg-slate-900/90');
+                        btn.classList.add('border-emerald-400', 'bg-emerald-500/20', 'text-white');
+                    } else if (idx === selectedIndex && selectedIndex !== q.correct) {
+                        btn.classList.remove('border-slate-700', 'bg-slate-900/90');
+                        btn.classList.add('border-rose-500', 'bg-rose-500/20', 'text-white');
+                    }
+                });
+
+                quizFeedback.classList.remove('hidden', 'bg-emerald-500/10', 'text-emerald-300', 'border-emerald-500/30', 'bg-rose-500/10', 'text-rose-300', 'border-rose-500/30');
+                quizFeedback.classList.add('border');
+
+                if (selectedIndex === q.correct) {
+                    score++;
+                    quizScore.textContent = score;
+                    quizFeedback.classList.add('bg-emerald-500/10', 'text-emerald-300', 'border-emerald-500/30');
+                    quizFeedback.innerHTML = `<strong>To'g'ri!</strong> ${q.explanation}`;
+                } else {
+                    quizFeedback.classList.add('bg-rose-500/10', 'text-rose-300', 'border-rose-500/30');
+                    quizFeedback.innerHTML = `<strong>Noto'g'ri.</strong> ${q.explanation}`;
+                }
+
+                quizNextBtn.textContent = currentQuestionIndex === quizQuestions.length - 1 ? "Natijani ko'rish" : "Keyingi savol →";
+                quizNextBtn.classList.remove('hidden');
+            }
+
+            quizNextBtn.addEventListener('click', () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizQuestions.length) {
+                    loadQuizQuestion();
+                } else {
+                    showQuizResult();
+                }
+            });
+
+            function showQuizResult() {
+                quizBody.classList.add('hidden');
+                quizHeader.classList.add('hidden');
+                quizResult.classList.remove('hidden');
+
+                let comment = "";
+                if (score === 5) comment = "Ajoyib natija! Siz haqiqiy robototexnika ekspertisiz!";
+                else if (score >= 3) comment = "Yaxshi natija! Robotlar olami haqida bilimingiz ancha yuqori.";
+                else comment = "Yaxshi urinish! Katalog va tarix bo'limlarini o'qib chiqib, qayta urinib ko'ring.";
+
+                quizResultText.innerHTML = `Siz <strong>${quizQuestions.length}</strong> ta savoldan <strong>${score}</strong> tasiga to'g'ri javob berdingiz. <br><span class="text-cyan-400 mt-2 block">${comment}</span>`;
+            }
+
+            quizRestartBtn.addEventListener('click', () => {
+                currentQuestionIndex = 0;
+                score = 0;
+                quizResult.classList.add('hidden');
+                quizBody.classList.remove('hidden');
+                quizHeader.classList.remove('hidden');
+                loadQuizQuestion();
+            });
+
+            loadQuizQuestion();
+
+            /* ----------------------------------------------------------------
+               7. ALOQA FORMASI VALIDATSIYASI VA TOAST BILDIRISHNOMA
+            ---------------------------------------------------------------- */
+            const contactForm = document.getElementById('contact-form');
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+
+            function showToast(msg) {
+                toastMessage.textContent = msg;
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 4000);
+            }
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const nameInput = document.getElementById('user-name');
+                const emailInput = document.getElementById('user-email');
+                const msgInput = document.getElementById('user-message');
+
+                const errName = document.getElementById('error-name');
+                const errEmail = document.getElementById('error-email');
+                const errMsg = document.getElementById('error-message');
+
+                let isValid = true;
+
+                // Ism tekshiruvi
+                if (nameInput.value.trim().length < 2) {
+                    errName.classList.remove('hidden');
+                    nameInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errName.classList.add('hidden');
+                    nameInput.classList.remove('border-rose-500');
+                }
+
+                // Email tekshiruvi
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    errEmail.classList.remove('hidden');
+                    emailInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errEmail.classList.add('hidden');
+                    emailInput.classList.remove('border-rose-500');
+                }
+
+                // Xabar tekshiruvi
+                if (msgInput.value.trim().length < 10) {
+                    errMsg.classList.remove('hidden');
+                    msgInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errMsg.classList.add('hidden');
+                    msgInput.classList.remove('border-rose-500');
+                }
+
+                if (isValid) {
+                    showToast(`Rahmat, ${nameInput.value.trim()}! Savolingiz muvaffaqiyatli yuborildi.`);
+                    contactForm.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
